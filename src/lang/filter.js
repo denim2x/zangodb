@@ -438,6 +438,9 @@ const buildClause = (parent_args, path, params) => {
     }
 
     if (op_keys.has('$nin')) {
+        if (params.$nin.length === 0) {
+            params.$nin.push('astringthatnobodywillevertryandmatchagainst')
+        }
         for (let value of params.$nin) {
             new_args.push(new NotEqual(path, value));
         }
