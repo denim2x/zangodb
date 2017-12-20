@@ -1,17 +1,15 @@
 'use strict';
 
-var _require = require('./util.js');
-
-var toPathPieces = _require.toPathPieces;
-var get = _require.get;
-var set = _require.set;
-var modify = _require.modify;
-var remove1 = _require.remove1;
-var rename = _require.rename;
-var equal = _require.equal;
-var unknownOp = _require.unknownOp;
-var getIDBError = _require.getIDBError;
-
+var _require = require('./util.js'),
+    toPathPieces = _require.toPathPieces,
+    get = _require.get,
+    set = _require.set,
+    modify = _require.modify,
+    remove1 = _require.remove1,
+    rename = _require.rename,
+    equal = _require.equal,
+    unknownOp = _require.unknownOp,
+    getIDBError = _require.getIDBError;
 
 var ops = {};
 
@@ -203,43 +201,45 @@ ops.$pull = function (path_pieces, value) {
 };
 
 ops.$addToSet = function (path_pieces, value) {
-    return function (doc) {
-        get(doc, path_pieces, function (obj, field) {
-            var elements = obj[field];
-            if (!Array.isArray(elements)) {
-                return;
+    var update = function update(obj, field) {
+        var elements = obj[field];
+        if (!Array.isArray(elements)) {
+            return;
+        }
+
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+            for (var _iterator3 = elements[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var element = _step3.value;
+
+                if (equal(element, value)) {
+                    return;
+                }
             }
-
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
             try {
-                for (var _iterator3 = elements[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var element = _step3.value;
-
-                    if (equal(element, value)) {
-                        return;
-                    }
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
                 }
-            } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
             } finally {
-                try {
-                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                        _iterator3.return();
-                    }
-                } finally {
-                    if (_didIteratorError3) {
-                        throw _iteratorError3;
-                    }
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
                 }
             }
+        }
 
-            elements.push(value);
-        });
+        elements.push(value);
     };
+    var init = function init(obj, field) {
+        obj[field] = [value];
+    };
+    return modifyOp(path_pieces, update, init);
 };
 
 var build = function build(steps, field, value) {
