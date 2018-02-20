@@ -4305,7 +4305,7 @@ var buildClause = function buildClause(parent_args, path, params) {
 
     if (op_keys.has('$nin')) {
         if (params.$nin.length === 0) {
-            params.$nin.push('astringthatnobodywillevertryandmatchagainst');
+            new_args.push(new NotEqual(path, 'astringthatnobodywillevertryandmatchagainst'));
         }
         var _iteratorNormalCompletion11 = true;
         var _didIteratorError11 = false;
