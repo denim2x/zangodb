@@ -305,7 +305,7 @@ var Collection = function () {
                         return deferred.reject(error);
                     }
 
-                    var req = store.add(doc);
+                    var req = store.put(doc);
 
                     req.onsuccess = function () {
                         i++;
