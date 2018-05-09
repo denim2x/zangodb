@@ -30,8 +30,12 @@ declare module "@webantic/zangodb" {
         update(expr: Object, spec: Object, cb?: Callback): Promise<void>;
     }
 
+    export interface Options {
+        onUpgradeNeeded?(event: IDBVersionChangeEvent, db: Db, idb: any)
+    }
+
     export class Db extends NodeJS.EventEmitter {
-        constructor(name: string, version?: number, config?: string[]|Object);
+        constructor(name: string, version?: number, config?: string[]|Object, options?: Options);
 
         name: string;
         version: number;

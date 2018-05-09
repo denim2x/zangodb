@@ -64,7 +64,7 @@ var Collection = require('./collection.js');
 var Db = function (_EventEmitter) {
     _inherits(Db, _EventEmitter);
 
-    function Db(name, version, config) {
+    function Db(name, version, config, options) {
         _classCallCheck(this, Db);
 
         var _this = _possibleConstructorReturn(this, (Db.__proto__ || Object.getPrototypeOf(Db)).call(this));
@@ -77,6 +77,7 @@ var Db = function (_EventEmitter) {
             _this._version = version;
         }
 
+        _this._options = options || {};
         _this._cols = {};
         _this._config = {};
         _this._initGetConn();
@@ -231,6 +232,9 @@ var Db = function (_EventEmitter) {
             req.onupgradeneeded = function (e) {
                 var idb = e.target.result;
 
+                if (typeof _this2._options.onUpgradeNeeded === 'function') {
+                    _this2._options.onUpgradeNeeded(e, _this2, idb);
+                }
                 for (var name in _this2._config) {
                     try {
                         if (!_this2._config[name]) {
