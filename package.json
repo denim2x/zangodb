@@ -1,6 +1,6 @@
 {
   "name": "@webantic/zangodb",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "MongoDB-like interface for HTML5 IndexedDB",
   "main": "./build/src/index.js",
   "typings": "./src/zangodb.d.ts",
