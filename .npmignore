@@ -1,0 +1,12 @@
+docs
+test
+src/lang
+build
+conf.json
+.eslintrc.json
+.git
+.gitattributes
+.gitignore
+gulfile.js
+LICENSE
+README.md
