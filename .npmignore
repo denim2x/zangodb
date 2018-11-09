@@ -2,7 +2,6 @@
 docs
 test
 src/lang
-build
 conf.json
 .eslintrc.json
 .git
