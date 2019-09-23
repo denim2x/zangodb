@@ -287,6 +287,33 @@ var UnaryFnOp = function (_FnOp) {
     return UnaryFnOp;
 }(FnOp);
 
+var UnaryVarFnOp = function (_FnOp) {
+    _inherits(UnaryVarFnOp, _FnOp);
+
+    function UnaryVarFnOp() {
+        _classCallCheck(this, UnaryVarFnOp);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UnaryVarFnOp).apply(this, arguments));
+    }
+
+    _createClass(UnaryVarFnOp, [{
+        key: 'run',
+        value: function run(fields) {
+            if (this.args[0] == null) {
+                return this.fn();
+            }
+            return this.fn(this.args[0].run(fields));
+        }
+    }, {
+        key: 'length',
+        get: function get() {
+            return 1;
+        }
+    }]);
+
+    return UnaryVarFnOp;
+}(FnOp);
+
 var fnOp = function fnOp(Parent, fn) {
     return function (_Parent) {
         _inherits(_class, _Parent);
@@ -758,7 +785,7 @@ var InvDateOp = function (_opTypes7) {
     }
 
     return InvDateOp;
-}(opTypes(UnaryFnOp, NumberValue, DateValue));
+}(opTypes(UnaryVarFnOp, NumberValue, DateValue));
 
 var invDateOp = function invDateOp(fn) {
     return fnOp(InvDateOp, fn);
