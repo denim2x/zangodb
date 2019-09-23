@@ -747,6 +747,38 @@ var Millisecond = function (_dateOp7) {
     return d.getUTCMilliseconds();
 }));
 
+
+var InvDateOp = function (_opTypes7) {
+    _inherits(InvDateOp, _opTypes7);
+
+    function InvDateOp() {
+        _classCallCheck(this, InvDateOp);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(InvDateOp).apply(this, arguments));
+    }
+
+    return InvDateOp;
+}(opTypes(UnaryFnOp, NumberValue, DateValue));
+
+var invDateOp = function invDateOp(fn) {
+    return fnOp(InvDateOp, fn);
+};
+
+var Datetime = function (_dateOp) {
+    _inherits(Datetime, _dateOp);
+
+    function Datetime() {
+        _classCallCheck(this, Datetime);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Datetime).apply(this, arguments));
+    }
+
+    return Datetime;
+}(invDateOp(function (n) {
+    return n == null ? new Date() : new Date(n);
+}));
+
+
 var TypeCond = function () {
     function TypeCond(stack, args, op) {
         _classCallCheck(this, TypeCond);
@@ -855,7 +887,8 @@ var ops = {
     $hour: Hour,
     $minute: Minute,
     $second: Second,
-    $millisecond: Millisecond
+    $millisecond: Millisecond,
+    $datetime: Datetime
 };
 
 var buildOp = function buildOp(paths, name, args) {
