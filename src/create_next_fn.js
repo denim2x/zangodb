@@ -1,4 +1,4 @@
-const merge = require('deepmerge');
+const merge = require('deepmerge').default;
 
 const { hashify, getIDBError } = require('./util.js'),
       filter = require('./filter.js'),
