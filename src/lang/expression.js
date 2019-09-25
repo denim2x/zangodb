@@ -177,6 +177,21 @@ class Minute extends dateOp(d => d.getUTCMinutes()) { }
 class Second extends dateOp(d => d.getUTCSeconds()) { }
 class Millisecond extends dateOp(d => d.getUTCMilliseconds()) { }
 
+class UnaryVarFnOp extends FnOp {
+    get length() { return 1; }
+
+    run(fields) { 
+        if (this.args[0] == null) {
+            return this.fn();
+        }
+        return this.fn(this.args[0].run(fields));
+    }
+}
+class InvDateOp extends opTypes(UnaryVarFnOp, NumberValue, DateValue) { }
+const invDateOp = fn => fnOp(InvDateOp, fn);
+class Datetime extends invDateOp(n => n == null ? new Date() : new Date(n)) { }
+
+
 class TypeCond {
     constructor(stack, args, op) {
         const { InputType, alt } = op;
@@ -239,7 +254,8 @@ const ops = {
     $hour: Hour,
     $minute: Minute,
     $second: Second,
-    $millisecond: Millisecond
+    $millisecond: Millisecond,
+    $Datetime: Datetime
 };
 
 const buildOp = (paths, name, args) => {
