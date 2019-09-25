@@ -255,7 +255,7 @@ const ops = {
     $minute: Minute,
     $second: Second,
     $millisecond: Millisecond,
-    $Datetime: Datetime
+    $datetime: Datetime
 };
 
 const buildOp = (paths, name, args) => {
