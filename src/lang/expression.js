@@ -192,6 +192,12 @@ const invDateOp = fn => fnOp(InvDateOp, fn);
 class Datetime extends invDateOp(n => n == null ? new Date() : new Date(n)) { }
 
 
+class DateArithOp extends opTypes(FnOp, DateValue) { }
+const dateArithOp = fn => fnOp(DateArithOp, fn);
+class AddD extends dateArithOp((a, b) => a + b) { }
+class SubtractD extends dateArithOp((a, b) => a - b) { }
+
+
 class TypeCond {
     constructor(stack, args, op) {
         const { InputType, alt } = op;
@@ -255,7 +261,9 @@ const ops = {
     $minute: Minute,
     $second: Second,
     $millisecond: Millisecond,
-    $datetime: Datetime
+    $datetime: Datetime,
+    $addD: AddD,
+    $subtractD: SubtractD
 };
 
 const buildOp = (paths, name, args) => {

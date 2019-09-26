@@ -806,6 +806,51 @@ var Datetime = function (_dateOp) {
 }));
 
 
+var DateArithOp = function (_opTypes) {
+    _inherits(DateArithOp, _opTypes);
+
+    function DateArithOp() {
+        _classCallCheck(this, DateArithOp);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DateArithOp).apply(this, arguments));
+    }
+
+    return DateArithOp;
+}(opTypes(FnOp, DateValue));
+
+var dateArithOp = function dateArithOp(fn) {
+    return fnOp(DateArithOp, fn);
+};
+
+var AddD = function (_arithOp) {
+    _inherits(AddD, _arithOp);
+
+    function AddD() {
+        _classCallCheck(this, AddD);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AddD).apply(this, arguments));
+    }
+
+    return AddD;
+}(dateArithOp(function (a, b) {
+    return a + b;
+}));
+
+var SubtractD = function (_arithOp2) {
+    _inherits(SubtractD, _arithOp2);
+
+    function SubtractD() {
+        _classCallCheck(this, SubtractD);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubtractD).apply(this, arguments));
+    }
+
+    return SubtractD;
+}(dateArithOp(function (a, b) {
+    return a - b;
+}));
+
+
 var TypeCond = function () {
     function TypeCond(stack, args, op) {
         _classCallCheck(this, TypeCond);
@@ -915,7 +960,9 @@ var ops = {
     $minute: Minute,
     $second: Second,
     $millisecond: Millisecond,
-    $datetime: Datetime
+    $datetime: Datetime,
+    $addD: AddD,
+    $subtractD: SubtractD
 };
 
 var buildOp = function buildOp(paths, name, args) {
