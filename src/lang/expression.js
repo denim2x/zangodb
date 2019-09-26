@@ -192,7 +192,7 @@ const invDateOp = fn => fnOp(InvDateOp, fn);
 class Datetime extends invDateOp(n => n == null ? new Date() : new Date(n)) { }
 
 
-class DateArithOp extends opTypes(FnOp, DateValue) { }
+class DateArithOp extends opTypes(FnOp, DateValue, NumberValue) { }
 const dateArithOp = fn => fnOp(DateArithOp, fn);
 class AddD extends dateArithOp((a, b) => a + b) { }
 class SubtractD extends dateArithOp((a, b) => a - b) { }
