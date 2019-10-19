@@ -816,7 +816,7 @@ var DateArithOp = function (_opTypes) {
     }
 
     return DateArithOp;
-}(opTypes(FnOp, DateValue, NumberValue));
+}(opTypes(FnOp, DateValue));
 
 var dateArithOp = function dateArithOp(fn) {
     return fnOp(DateArithOp, fn);
