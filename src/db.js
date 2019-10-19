@@ -47,10 +47,11 @@ const Collection = require('./collection.js');
  * let db = new zango.Db('mydb', ['col1', 'col2']);
  */
 class Db extends EventEmitter {
-    constructor(name, version, config) {
+    constructor(name, version, config, keyPath) {
         super();
 
         this._name = name;
+        this._keyPath = keyPath || '_id';
 
         if (typeof version === 'object') { config = version; }
         else { this._version = version; }
@@ -122,7 +123,7 @@ class Db extends EventEmitter {
 
     _addStore(idb, name) {
         const store = idb.createObjectStore(name, {
-            keyPath: '_id',
+            keyPath: this._keyPath,
             autoIncrement: true
         });
 

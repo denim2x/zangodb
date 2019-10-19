@@ -65,12 +65,13 @@ var Collection = require('./collection.js');
 var Db = function (_EventEmitter) {
     _inherits(Db, _EventEmitter);
 
-    function Db(name, version, config) {
+    function Db(name, version, config, keyPath) {
         _classCallCheck(this, Db);
 
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Db).call(this));
 
         _this._name = name;
+        _this._keyPath = keyPath || '_id';
 
         if ((typeof version === 'undefined' ? 'undefined' : _typeof(version)) === 'object') {
             config = version;
@@ -188,7 +189,7 @@ var Db = function (_EventEmitter) {
         key: '_addStore',
         value: function _addStore(idb, name) {
             var store = idb.createObjectStore(name, {
-                keyPath: '_id',
+                keyPath: this._keyPath,
                 autoIncrement: true
             });
 
