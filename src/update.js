@@ -115,17 +115,23 @@ ops.$pull = (path_pieces, value) => {
     return ops.$pullAll(path_pieces, [value]);
 };
 
-ops.$addToSet = (path_pieces, value) => (doc) => {
-    get(doc, path_pieces, (obj, field) => {
+ops.$addToSet = (path_pieces, value) => {
+    const update = (obj, field) => {
         const elements = obj[field];
-        if (!Array.isArray(elements)) { return; }
+        if (!Array.isArray(elements)) {
+            return
+        }
 
         for (let element of elements) {
             if (equal(element, value)) { return; }
         }
 
         elements.push(value);
-    });
+    }
+    const init = (obj, field) => {
+        obj[field] = [value]
+    }
+    return modifyOp(path_pieces, update, init)
 };
 
 const build = (steps, field, value) => {

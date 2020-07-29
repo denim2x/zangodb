@@ -146,7 +146,7 @@ class Collection {
                 try { this._validate(doc); }
                 catch (error) { return deferred.reject(error); }
 
-                const req = store.add(doc);
+                const req = store.put(doc);
 
                 req.onsuccess = () => {
                     i++;

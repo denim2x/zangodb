@@ -1,0 +1,11 @@
+*.tgz
+docs
+test
+src/lang
+conf.json
+.eslintrc.json
+.git
+.gitattributes
+.gitignore
+gulfile.js
+README.md

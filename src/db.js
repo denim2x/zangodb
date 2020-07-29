@@ -47,15 +47,17 @@ const Collection = require('./collection.js');
  * let db = new zango.Db('mydb', ['col1', 'col2']);
  */
 class Db extends EventEmitter {
-    constructor(name, version, config, keyPath) {
+    constructor(name, config={}) {
         super();
 
+        const { keyPath='_id', version, options={} } = config;
+
         this._name = name;
-        this._keyPath = keyPath || '_id';
+        this._keyPath = keyPath;
 
-        if (typeof version === 'object') { config = version; }
-        else { this._version = version; }
+        this._version = version;
 
+        this._options = options;
         this._cols = {};
         this._config = {};
         this._initGetConn();
@@ -158,6 +160,9 @@ class Db extends EventEmitter {
         req.onupgradeneeded = (e) => {
             const idb = e.target.result;
 
+            if (typeof this._options.onUpgradeNeeded === 'function') {
+                this._options.onUpgradeNeeded(e, this, idb)
+            } 
             for (let name in this._config) {
                 try {
                     if (!this._config[name]) {

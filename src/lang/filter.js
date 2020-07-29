@@ -5,8 +5,8 @@ const {
 } = require('../util.js');
 
 const MISSING = require('./missing_symbol.js'),
-      Path = require('./path.js'),
-      Fields = require('./fields.js');
+    Path = require('./path.js'),
+    Fields = require('./fields.js');
 
 const isIndexMatchable = (value) => {
     if (typeof value === 'number') { return !isNaN(value); }
@@ -175,9 +175,9 @@ const rangeMixin = (...fns) => {
 };
 
 const gt = (a, b) => a > b,
-      gte = (a, b) => a >= b,
-      lt = (a, b) => a < b,
-      lte = (a, b) => a <= b;
+    gte = (a, b) => a >= b,
+    lt = (a, b) => a < b,
+    lte = (a, b) => a <= b;
 
 class Gt extends rangeMixin(gt) {
     get idb_key_range() {
@@ -438,6 +438,9 @@ const buildClause = (parent_args, path, params) => {
     }
 
     if (op_keys.has('$nin')) {
+        if (params.$nin.length === 0) {
+            new_args.push(new NotEqual(path, 'astringthatnobodywillevertryandmatchagainst'))
+        }
         for (let value of params.$nin) {
             new_args.push(new NotEqual(path, value));
         }

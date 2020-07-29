@@ -1,6 +1,6 @@
 {
-  "name": "zangodb",
-  "version": "1.0.8",
+  "name": "@webantic/zangodb",
+  "version": "1.1.7",
   "description": "MongoDB-like interface for HTML5 IndexedDB",
   "main": "./build/src/index.js",
   "typings": "./src/zangodb.d.ts",
@@ -37,6 +37,8 @@
     "q": "^1.5.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "browserify": "^14.4.0",
     "chai": "^4.0.2",
     "fake-indexeddb": "^2.0.3",
@@ -44,7 +46,6 @@
     "gulp-babel": "^7.0.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
-    "babel-core": "^6.26.0",
     "mocha": "^4.0.1",
     "run-sequence": "^2.1.0",
     "vinyl-buffer": "^1.0.0",
